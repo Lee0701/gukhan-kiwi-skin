@@ -1,0 +1,12 @@
+{
+  "name": "gukhan-kiwi-skin",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "GPL-3.0"
+}
