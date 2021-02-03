@@ -6,7 +6,6 @@ var pageExtension = "{{ site.extension.page }}"
 const url = new URL(location.href)
 
 window.addEventListener('load', () => {
-    console.log(url.pathname)
     if(url.pathname == '/search.html') displaySearchResult()
 })
 
@@ -45,7 +44,7 @@ const displaySearchResult = () => {
     });
 }
 
-function goto(searchString, callback) {
+const goto = (searchString, callback) => {
     var url = pageUrl(searchString)
     var request = new XMLHttpRequest()
     request.onreadystatechange = function() {
@@ -57,7 +56,7 @@ function goto(searchString, callback) {
     request.send(null)
 }
 
-function search(searchString, callback) {
+const search = (searchString, callback) => {
     var request = new XMLHttpRequest()
     request.onreadystatechange = function() {
         if(request.readyState === XMLHttpRequest.DONE && request.status === 200) {
@@ -69,6 +68,4 @@ function search(searchString, callback) {
     request.send(null)
 }
 
-function pageUrl(title) {
-    return pagesUrl + '/' + title.replace(/ /g, '_') + pageExtension
-}
+const pageUrl = (title) => pagesUrl + '/' + title.replace(/ /g, '_') + pageExtension
