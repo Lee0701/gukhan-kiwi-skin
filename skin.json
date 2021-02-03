@@ -1,0 +1,11 @@
+{
+    "index": "index.html",
+    "builds": [
+        "404.html",
+        "search.html",
+        "dist/js/bundle.js"
+    ],
+    "files": [
+        "res"
+    ]
+}
