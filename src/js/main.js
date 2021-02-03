@@ -28,7 +28,7 @@
     const displaySearchResult = async () => {
         const gotoResult = document.querySelector('#goto-result')
         const searchResult = document.querySelector('#search-result')
-        const searchString = decodeURIComponent(url.searchParams.get('search') || '')
+        const searchString = decodeURIComponent(url.searchParams.get('search') || '').toLocaleLowerCase()
         try {
             const pageUrl = getPageUrl(searchString)
             const {data} = await axios.get(pageUrl)
