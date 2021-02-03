@@ -35,39 +35,52 @@
             if(data) gotoResult.innerHTML = '<h2>文書名 一致: <a href="' + pageUrl + '">' + searchString + '</a><h2>'
         } catch(e) {
         }
-        const data = await search(searchString)
+        const searchWords = searchString.split(/\s+/)
+        const searches = await Promise.all(searchWords.map(search))
+        const data = searches.reduceRight(reduceSearchResultAnd)
         if(!data) {
             if(gotoResult.innerHTML != '') gotoResult.innerHTML = '結果가 없습니다.'
             return
         }
-        const word = data.word
-        for(entry of data.pages) {
+        const words = (typeof data.word === 'object') ? data.word : [data.word]
+        data.pages.forEach((entry) => {
             const title = entry.title
             const url = getPageUrl(title)
-            const surrounding = entry.surrounding
 
-            const index = surrounding.indexOf(word)
-            surrounding =
-                    surrounding.substring(0, index)
-                    + '<span class="bold">'
-                    + word
-                    + '</span>'
-                    + surrounding.substring(index + word.length)
-            
+            const surrounding = words.reduce((acc, word) => {
+                const boldened = `<span class="bold">${word}</span>`
+                return acc.replaceAll(word, boldened)
+            }, entry.surrounding)
+
             const div = document.createElement('div')
             div.classList.add('result-entry')
-            div.innerHTML =
-                    '<h3 class="title">'
-                    + '<a href="' + url + '">'
-                    + title + '</a></h3>'
-                    + '<p class="surrounding">'
-                    + surrounding + '</p>'
+            const h3 = `<h3 class="title"><a href="${url}">${title}</a></h3>`
+            const p = `<p class="surrounding">${surrounding}</p>`
+            div.innerHTML = h3 + p
             searchResult.appendChild(div)
-        }
+        })
+    }
+
+    const reduceSearchResultAnd = (acc, {word, pages}) => {
+        const words = []
+        if(typeof acc.word === 'object') words.push(...acc.word)
+        else if(typeof acc.word === 'string') words.push(acc.word)
+        if(typeof word === 'object') words.push(...word)
+        else if(typeof word === 'string') words.push(word)
+        const anotherPages = acc.pages || []
+        const newPages = pages
+                .map((page) => [page, anotherPages.find((another) => another.title === page.title)])
+                .filter(([_page, another]) => another)
+                .map(([page, another]) => ({title: page.title, surrounding: page.surrounding + ' ... ' + another.surrounding}))
+        return {word: words, pages: newPages}
     }
     
     const search = async (searchString) => {
-        return (await axios.get(indicesUrl + '/' + searchString + '.json')).data
+        try {
+            return (await axios.get(indicesUrl + '/' + searchString + '.json')).data
+        } catch(e) {
+            return null
+        }
     }
     
     const getPageUrl = (title) => pagesUrl + '/' + title.replace(/ /g, '_') + pageExtension    
