@@ -1,5 +1,10 @@
 {
     "index": "index.html",
+    "layouts": {
+        "index.html": "default.html",
+        "404.html": "default.html",
+        "search.html": "default.html"
+    },
     "builds": [
         "404.html",
         "search.html",
