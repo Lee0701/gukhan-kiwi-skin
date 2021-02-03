@@ -26,20 +26,26 @@
     }
     
     const displaySearchResult = async () => {
+        const gotoInput = document.querySelector('#goto-input')
         const gotoResult = document.querySelector('#goto-result')
         const searchResult = document.querySelector('#search-result')
         const searchString = decodeURIComponent(url.searchParams.get('search') || '').toLocaleLowerCase()
+        gotoInput.value = searchString
         try {
             const pageUrl = getPageUrl(searchString)
             const {data} = await axios.get(pageUrl)
-            if(data) gotoResult.innerHTML = '<h2>文書名 一致: <a href="' + pageUrl + '">' + searchString + '</a><h2>'
+            const h2 = document.createElement('h2')
+            h2.innerHTML = `文書名 一致: <a href="${pageUrl}">${searchString}</a>`
+            if(data) gotoResult.appendChild(h2)
         } catch(e) {
         }
         const searchWords = searchString.split(/\s+/)
         const searches = await Promise.all(searchWords.map(search))
         const data = searches.reduceRight(reduceSearchResultAnd)
         if(!data) {
-            if(gotoResult.innerHTML != '') gotoResult.innerHTML = '結果가 없습니다.'
+            const p = document.createElement('p')
+            p.innerHTML = '結果가 없습니다.'
+            searchResult.appendChild(p)
             return
         }
         const words = (typeof data.word === 'object') ? data.word : [data.word]
