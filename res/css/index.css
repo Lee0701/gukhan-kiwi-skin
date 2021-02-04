@@ -5,8 +5,13 @@ body {
     font-family: 'Noto Sans KR','Noto Sans JP','Noto Sans SC','Noto Sans CJK KR','Noto Sans CJK JP','Noto Sans CJK SC','Han-Nom Gothic',sans-serif;
 }
 
+* {
+    box-sizing: border-box;
+}
+
 .site-header {
     background: black;
+    box-shadow: 0px 6px 0 #ccc;
 }
 
 .site-header * {
@@ -15,24 +20,28 @@ body {
 
 .site-footer {
     padding: 10px;
-    border-top: 2px solid black;
+    border-top: 3px solid black;
     background: white;
+    font-size: 0.9rem;
 }
 
 .site-main, .header-main, .footer-main {
-    max-width: 1024px;
+    max-width: 960px;
     margin: 0 auto;
     padding: 0px 20px;
 }
 
+.header-main, .footer-main {
+    padding: 0px;
+}
+
 .site-main {
     min-height: 768px;
-    margin-top: 10px;
-    margin-bottom: 20px;
+    margin: 20px auto;
     padding-top: 10px;
     padding-bottom: 20px;
     background: white;
-    box-shadow: 10px 10px 0 #aaa;
+    box-shadow: 10px 10px 0 #ccc;
 }
 
 .site-header > .header-main, .main-header {
@@ -44,7 +53,7 @@ body {
 }
 
 .site-nav, #search-form {
-    margin: 10px 0px;
+    margin: 6px 0px;
 }
 
 #search-form, .main-nav {
@@ -84,6 +93,10 @@ a.new, a.new:visited {
 
 a:active {
     color: darkblue;
+}
+
+a.external {
+    color: green;
 }
 
 img {
