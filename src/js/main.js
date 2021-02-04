@@ -28,7 +28,7 @@
         const baseUrl = '{{ site.source.url }}{{ site.path.pages }}/'
         const url = new URL(location.href)
         const pathName = url.pathname.split('/')
-        const pageName = pathName[pathName.length - 1]
+        let pageName = pathName[pathName.length - 1]
         if(pageName.endsWith('.html')) pageName = pageName.substring(0, pageName.length - 5)
         location.href = baseUrl + pageName
     }
