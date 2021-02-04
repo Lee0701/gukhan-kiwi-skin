@@ -11779,8 +11779,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
 
     document.querySelector('#search-form').addEventListener('submit', function (event) {
-      var searchString = encodeURIComponent(document.querySelector('#search-input').value); // console.log('{{ site.baseUrl }}/search.html?search=' + searchString)
-
+      var searchString = encodeURIComponent(document.querySelector('#search-input').value);
       location.href = '{{ site.baseUrl }}/search.html?search=' + searchString;
       event.preventDefault();
       return false;
@@ -11788,7 +11787,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   });
 
   var redirectToSourceSite = function redirectToSourceSite() {
-    var baseUrl = '{{ site.source.url }}{{ site.path.pages }}/';
+    var baseUrl = '{{ site.source.url }}{{ site.source.wiki }}/';
     var url = new URL(location.href);
     var pathName = url.pathname.split('/');
     var pageName = pathName[pathName.length - 1];

@@ -17,7 +17,6 @@
         }
         document.querySelector('#search-form').addEventListener('submit', (event) => {
             const searchString = encodeURIComponent(document.querySelector('#search-input').value)
-            // console.log('{{ site.baseUrl }}/search.html?search=' + searchString)
             location.href = '{{ site.baseUrl }}/search.html?search=' + searchString
             event.preventDefault()
             return false
@@ -25,7 +24,7 @@
     })
     
     const redirectToSourceSite = () => {
-        const baseUrl = '{{ site.source.url }}{{ site.path.pages }}/'
+        const baseUrl = '{{ site.source.url }}{{ site.source.wiki }}/'
         const url = new URL(location.href)
         const pathName = url.pathname.split('/')
         let pageName = pathName[pathName.length - 1]
