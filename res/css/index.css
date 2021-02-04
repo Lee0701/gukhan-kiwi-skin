@@ -28,7 +28,6 @@ body {
 .site-main, .header-main, .footer-main {
     max-width: 960px;
     margin: 0 auto;
-    padding: 0px 20px;
 }
 
 
@@ -47,7 +46,7 @@ body {
 .site-main {
     min-height: 768px;
     margin: 20px auto;
-    padding: 10px 20px;
+    padding: 10px 1.5rem;
     background: white;
     box-shadow: 10px 10px 0 #ccc;
 }
@@ -153,6 +152,11 @@ div.tright, div.floatright, table.floatright {
     float: right;
 }
 
+.tright {
+    margin-left: 0.8rem;
+    margin-bottom: 0.8rem;
+}
+
 div.tleft, div.floatleft, table.floatleft {
     clear: left;
     float: left;
@@ -160,6 +164,10 @@ div.tleft, div.floatleft, table.floatleft {
 
 .thumbinner {
     margin: auto;
+}
+
+.thumb .thumbcaption {
+    text-align: center;
 }
 
 table {
@@ -207,5 +215,8 @@ span.bold {
     .site-header #search-form {
         padding-inline-start: 10px;
         padding-inline-end: 10px;
+    }
+    .site-main {
+        padding: 10px 0.5rem;
     }
 }
