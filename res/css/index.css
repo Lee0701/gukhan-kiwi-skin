@@ -11,7 +11,7 @@ body {
 
 .site-header {
     background: black;
-    box-shadow: 0px 6px 0 #ccc;
+    box-shadow: 0px 5px 0 #ccc;
 }
 
 .site-header * {
@@ -31,15 +31,23 @@ body {
     padding: 0px 20px;
 }
 
+
 .header-main, .footer-main {
     padding: 0px;
+}
+
+.site-header > .header-main > * {
+    padding: 6px 0px;
+}
+
+.site-nav {
+    font-size: 1.25rem;
 }
 
 .site-main {
     min-height: 768px;
     margin: 20px auto;
-    padding-top: 10px;
-    padding-bottom: 20px;
+    padding: 10px 20px;
     background: white;
     box-shadow: 10px 10px 0 #ccc;
 }
@@ -50,17 +58,42 @@ body {
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
+    width: 100%;
 }
 
-.site-nav, #search-form {
-    margin: 6px 0px;
+.site-header, #search-form {
+    display: flex;
+    flex-direction: row;
+    margin: 0px;
+}
+
+.site-header #search-form > #search-input {
+    flex: 1;
 }
 
 #search-form, .main-nav {
     display: flex;
     flex-direction: row;
     justify-content: right;
-    flex-grow: 1;
+}
+
+#search-form > * {
+    border-radius: 0;
+    border: none;
+    padding: 5px 10px;
+    border: 1px solid #aaa none;
+    border-inline-start: 1px solid #aaa;
+}
+
+#search-form > *:first-child {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+#search-form > *:last-child {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-inline-end: 1px solid #aaa;
 }
 
 #search-form > * {
@@ -70,11 +103,22 @@ body {
 nav > * {
     display: inline-block;
     margin: 0px 10px;
-    font-size: 1.25em;
 }
 
 .site-nav a, .site-nav a:visited {
     color: white;
+}
+
+.main-header {
+    margin: 10px 0px;
+}
+
+.main-header .page-title {
+    margin: 0px;
+}
+
+.main-nav {
+    margin-top: 10px;
 }
 
 .catmembers {
@@ -151,4 +195,17 @@ span.mw-editsection {
 
 span.bold {
     font-weight: bold;
+}
+
+@media screen and (max-width: 960px) {
+    .site-header > .header-main, .main-header {
+        justify-content: center;
+    }
+    .site-header > .header-main > * {
+        width: 100%;
+    }
+    .site-header #search-form {
+        padding-inline-start: 10px;
+        padding-inline-end: 10px;
+    }
 }
