@@ -57,7 +57,8 @@
             return
         }
         const words = (typeof data.word === 'object') ? data.word : [data.word]
-        data.pages.forEach((entry) => {
+        const pages = data.pages.sort((a, b) => b.count - a.count)
+        pages.forEach((entry) => {
             const title = entry.title
             const url = getPageUrl(title)
 
@@ -85,7 +86,7 @@
         const newPages = pages
                 .map((page) => [page, anotherPages.find((another) => another.title === page.title)])
                 .filter(([_page, another]) => another)
-                .map(([page, another]) => ({title: page.title, surrounding: page.surrounding + ' ... ' + another.surrounding}))
+                .map(([page, another]) => ({title: page.title, count: (page.count + another.count) / 2, surrounding: page.surrounding + ' ... ' + another.surrounding}))
         return {word: words, pages: newPages}
     }
     
