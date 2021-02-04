@@ -10,10 +10,18 @@
     const url = new URL(location.href)
     
     window.addEventListener('load', () => {
-        if(url.pathname == '/search.html') displaySearchResult()
-        else {
+        if(url.pathname == '/search.html') {
+            displaySearchResult()
+        } else {
             axios.get(location.href).catch(() => redirectToSourceSite())
         }
+        document.querySelector('#search-form').addEventListener('submit', (event) => {
+            const searchString = encodeURIComponent(document.querySelector('#search-input').value)
+            // console.log('{{ site.baseUrl }}/search.html?search=' + searchString)
+            location.href = '{{ site.baseUrl }}/search.html?search=' + searchString
+            event.preventDefault()
+            return false
+        })
     })
     
     const redirectToSourceSite = () => {
@@ -26,11 +34,11 @@
     }
     
     const displaySearchResult = async () => {
-        const gotoInput = document.querySelector('#goto-input')
+        const searchInput = document.querySelector('#search-input')
         const gotoResult = document.querySelector('#goto-result')
         const searchResult = document.querySelector('#search-result')
         const searchString = decodeURIComponent(url.searchParams.get('search') || '').toLocaleLowerCase()
-        gotoInput.value = searchString
+        searchInput.value = searchString
         try {
             const pageUrl = getPageUrl(searchString)
             const {data} = await axios.get(pageUrl)
